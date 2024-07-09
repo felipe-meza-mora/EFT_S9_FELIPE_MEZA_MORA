@@ -1,0 +1,107 @@
+<!-- Toast container -->
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast align-items-center text-white bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toast-body">
+          
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container mt-5">
+  <h2>Carrito de Compras</h2>
+  <div *ngIf="cart.length === 0" class="alert alert-warning bg-white text-black border-error" role="alert">
+    <span>Tu carrito está vacío.</span>
+  </div>
+  <br>
+  <br>
+  <div *ngIf="cart.length > 0">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Producto</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart">
+          <td class="align-middle">
+            <div class="d-flex align-items-center">
+              <img [src]="item.product.thumbnailUrl" class="img-thumbnail" style="width: 50px; height: auto;" alt="{{ item.product.title }}">
+              <div class="ms-3">
+                <h6 class="mb-0">{{ item.product.title }}</h6>
+                <small class="text-muted">{{ item.product.descripcion | slice:0:50 }}...</small>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(item.product.id)">-</button>
+              <span class="mx-2">{{ item.quantity }}</span>
+              <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(item.product.id)">+</button>
+            </div>
+          </td>
+          <td class="align-middle">{{ item.product.precio | currency:'':'symbol':'1.0-0' }}</td>
+          <td class="align-middle">{{ (item.product.precio * item.quantity) | currency:'':'symbol':'1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between">
+      <h4>Total: <span class="text-black">{{ total | currency:'':'symbol':'1.0-0' }}</span></h4>
+      <button class="btn btn-danger" (click)="clearCart()">Vaciar Carrito</button>
+    </div>
+    <div *ngIf="!userLoggedIn" class="mt-4" style="background-color: white; padding: 20px;">
+      <h5>Por favor, ingresa tu información para continuar con la compra</h5>
+      <form [formGroup]="userInfoForm" (ngSubmit)="proceedToCheckout()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre Completo</label>
+          <input type="text" id="nombre" formControlName="nombre" class="form-control">
+          <div *ngIf="userInfoForm.get('nombre')?.invalid && userInfoForm.get('nombre')?.touched" class="text-danger">
+            Nombre es requerido
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección de Envío</label>
+          <input type="text" id="direccion" formControlName="direccion" class="form-control">
+          <div *ngIf="userInfoForm.get('direccion')?.invalid && userInfoForm.get('direccion')?.touched" class="text-danger">
+            Dirección es requerida
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" id="correo" formControlName="correo" class="form-control">
+          <div *ngIf="userInfoForm.get('correo')?.invalid && userInfoForm.get('correo')?.touched" class="text-danger">
+            Correo Electrónico es requerido
+          </div>
+          <div *ngIf="userInfoForm.get('correo')?.hasError('correo') && !userInfoForm.get('correo')?.hasError('required')" class="text-danger">
+            Proporcione un correo electrónico válido
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input type="text" id="telefono" formControlName="telefono" class="form-control">
+          <div *ngIf="userInfoForm.get('telefono')?.invalid && userInfoForm.get('telefono')?.touched" class="text-danger">
+            Teléfono es requerido
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-warning text-white" [disabled]="userInfoForm.invalid">Proceder al Pago</button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="userLoggedIn" class="d-flex justify-content-end mt-3">
+      <button class="btn btn-warning text-white" (click)="proceedToCheckout()">Proceder al Pago</button>
+    </div>
+    <br>
+    <br>
+  </div>
+</div>

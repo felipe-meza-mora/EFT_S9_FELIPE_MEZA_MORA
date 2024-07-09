@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4" style="max-width: 500px; width: 100%;">
+    <h3 class="card-title text-center mb-4">Editar Perfil</h3>
+    <form [formGroup]="formRegistro" (ngSubmit)="submitForm()">
+      <div class="mb-3">
+        <label for="rut" class="form-label">Rut</label>
+        <input type="text" class="form-control" id="rut" formControlName="rut" appRutFormat>
+        <div *ngIf="formRegistro.get('rut')?.hasError('required')" class="text-danger">
+          El rut es requerido
+        </div>
+        <div *ngIf="formRegistro.get('rut')?.hasError('rutInvalido') && !formRegistro.get('rut')?.hasError('required')" class="text-danger">
+          El rut no es válido
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <div *ngIf="formRegistro.get('nombre')?.hasError('required')" class="text-danger">
+          El nombre completo es requerido
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="correo" formControlName="correo">
+        <div *ngIf="formRegistro.get('correo')?.hasError('required')" class="text-danger">
+          El correo electrónico es requerido
+        </div>
+        <div *ngIf="formRegistro.get('correo')?.hasError('email') && !formRegistro.get('correo')?.hasError('required')" class="text-danger">
+          Proporcione un correo electrónico válido
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div *ngIf="formRegistro.get('password')?.hasError('minlength')" class="text-danger">
+          La contraseña debe tener al menos 8 caracteres
+        </div>
+        <div *ngIf="formRegistro.get('password')?.hasError('maxlength')" class="text-danger">
+          La contraseña no puede tener más de 20 caracteres
+        </div>
+        <div *ngIf="formRegistro.get('password')?.hasError('missingUppercase')" class="text-danger">
+          {{ formRegistro.get('password')?.errors?.['missingUppercase'] }}
+        </div>
+        <div *ngIf="formRegistro.get('password')?.hasError('missingLowercase')" class="text-danger">
+          {{ formRegistro.get('password')?.errors?.['missingLowercase'] }}
+        </div>
+        <div *ngIf="formRegistro.get('password')?.hasError('missingNumber')" class="text-danger">
+          {{ formRegistro.get('password')?.errors?.['missingNumber'] }}
+        </div>
+        <div *ngIf="formRegistro.get('password')?.hasError('missingSpecial')" class="text-danger">
+          {{ formRegistro.get('password')?.errors?.['missingSpecial'] }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+        <div *ngIf="formRegistro.get('confirmPassword')?.hasError('required')" class="text-danger">
+          La confirmación de la contraseña es requerida
+        </div>
+        <div *ngIf="formRegistro.errors?.['passwordMismatch'] && formRegistro.get('confirmPassword')?.touched" class="text-danger">
+          Las contraseñas deben coincidir
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="telefono" formControlName="telefono">
+        <div *ngIf="formRegistro.get('telefono')?.hasError('required')" class="text-danger">
+          El teléfono es requerido
+        </div>
+      </div>
+      <div class="mb-3">
+        <input type="hidden" class="form-control" id="permisos" formControlName="permisos">
+      </div>
+      <div class="mb-3">
+        <label for="direccionEnvio" class="form-label">Dirección de Envío</label>
+        <input type="text" class="form-control" id="direccionEnvio" formControlName="direccionEnvio">
+      </div>
+      <div class="mb-3 d-grid">
+        <button type="submit" class="btn btn-warning text-white">Actualizar</button>
+      </div>
+    </form>
+
+    <!-- Mostrar mensaje de éxito -->
+    <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+      {{ mensajeExito }}
+    </div>
+  </div>
+</div>

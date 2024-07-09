@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .btn-sm {
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,59 @@
+<div class="container">
+    <h2>Lista de Usuarios</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>RUT</th>
+          <th>Teléfono</th>
+          <th>Dirección de Envío</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.rut }}</td>
+          <td>{{ user.telefono }}</td>
+          <td>{{ user.direccionEnvio }}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal(user)">
+                <i class="bi bi-trash"></i> Eliminar
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+          <!-- Modal para confirmación de eliminación -->
+          <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteUserModalLabel">Confirmar Eliminación</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Estás seguro de que deseas eliminar al usuario "{{ selectedUser?.nombre }}"?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger" (click)="deleteUser()">Eliminar Usuario</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      
+          <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header">
+                <strong class="me-auto">Confirmación</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div id="toast-body" class="toast-body"></div>
+            </div>
+          </div>
+</div>

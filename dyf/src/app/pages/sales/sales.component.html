@@ -1,0 +1,50 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Listado de Pedidos</h2>
+        <div *ngIf="pedidos.length > 0; else noPedidos">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered mt-4">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pedido of pedidos">
+                  <td>{{ pedido.nombre }}</td>
+                  <td>{{ pedido.direccion }}</td>
+                  <td>{{ pedido.correo }}</td>
+                  <td>{{ pedido.telefono }}</td>
+                  <td>{{ pedido.total | currency:'':'symbol':'1.0-0' }}</td>
+                  <td>{{ pedido.estado }}</td>
+                  <td>
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
+                      <button class="btn btn-warning btn-sm mb-1 mb-md-0 me-md-1" (click)="actualizarEstado(pedido, 'En preparación')">
+                        <span class="bi bi-box-arrow-in-right text-white"></span>
+                      </button>
+                      <button class="btn btn-warning btn-sm mb-1 mb-md-0 me-md-1" (click)="actualizarEstado(pedido, 'En despacho')">
+                        <span class="bi bi-truck text-white"></span>
+                      </button>
+                      <button class="btn btn-warning btn-sm" (click)="actualizarEstado(pedido, 'Entregado')">
+                        <span class="bi bi-check2 text-white"></span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ng-template #noPedidos>
+          <p>No existen pedidos por gestionar.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>

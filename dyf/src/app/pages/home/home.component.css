@@ -1,0 +1,33 @@
+.card-img-top {
+    height: 225px;
+    object-fit: contain;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+/* Estilo para la tabla de administrador */
+.table {
+  background-color: #ffffff; /* Fondo blanco */
+}
+
+.table th, .table td {
+  color: #000000; /* Texto negro */
+}
+
+.table-secondary {
+  background-color: #f0f0f0; /* Fondo gris claro para el encabezado */
+}
+
+/* Estilos para los botones de modificar y eliminar */
+.btn-warning .bi-pencil-fill {
+  color: #000000; /* Icono de lápiz en negro */
+}
+
+.btn-danger .bi-trash-fill {
+  color: #ffffff; /* Icono de papelera en blanco */
+}

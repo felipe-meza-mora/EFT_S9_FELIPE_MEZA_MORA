@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Listado de Pedidos</h2>
+        <div *ngIf="pedidosFiltrados.length > 0; else noPedidos">
+          <div class="card mb-3" *ngFor="let pedido of pedidosFiltrados">
+            <div class="card-header">
+              Pedido de {{ pedido.nombre }}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Información del Pedido</h5>
+              <p class="card-text"><strong>Dirección:</strong> {{ pedido.direccion }}</p>
+              <p class="card-text"><strong>Correo:</strong> {{ pedido.correo }}</p>
+              <p class="card-text"><strong>Teléfono:</strong> {{ pedido.telefono }}</p>
+              <p class="card-text"><strong>Total:</strong> {{ pedido.total | currency:'':'symbol':'1.0-0'  }}</p>
+              <p class="card-text"><strong>Estado:</strong> {{ pedido.estado }}</p>
+              <h5 class="card-title">Detalle</h5>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of pedido.detalle">
+                    <img [src]="item.img" class="img-thumbnail" style="width: 50px; height: auto;" alt="{{ item.producto }}"> {{ item.producto }} - {{ item.cantidad }} x {{ item.precio | currency:'':'symbol':'1.0-0'  }} = {{ item.subtotal | currency:'':'symbol':'1.0-0'  }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <ng-template #noPedidos>
+          <p>No se encontraron pedidos para {{ nombreFiltro }}.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
