@@ -8,7 +8,7 @@ variables:
   IMAGE_NAME: 'myapp-angu-s8'  # Se debe colocar el Nombre de la imagen que será descargada desde ACR
   ACR_NAME: 'arcexp3s8grupo1'  # Se debe colocar el Nombre de tu Azure Container Registry (ACR)
   ACR_USERNAME: 'arcexp3s8grupo1'  # Se debe colocar el Nombre de usuario del ACR
-  ACR_PASSWORD: 'RNKYGepQvXUo5gINiu5eliPScymDkIFNZ6yBsKc/sc+ACRCgb/ZH'  # Se debe colocar la Contraseña del ACR
+  ACR_PASSWORD: 'RNKYGepQvXUo5gINiu5eliPScymDkIFNZ6yBsKc/sc+ACRCgb/ZH'  # Se debe colocar la Contraseña del AC
 
 stages:
   - stage: Deploy
