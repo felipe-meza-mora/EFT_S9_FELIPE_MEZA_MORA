@@ -34,7 +34,7 @@ stages:
                       echo "Azure CLI ya está instalado."
                     fi
                   displayName: 'Verificar e Instalar Azure CLI'
-                  failOnStderr: false
+                  failOnStderr: true
 
                 - script: |
                     # Verificar e instalar Docker en la máquina virtual
